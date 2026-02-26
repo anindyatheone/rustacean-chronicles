@@ -8,14 +8,14 @@ pub fn CutsceneViewer(
 ) -> impl IntoView {
     let title = move || match (episode.get(), is_intro.get()) {
         (1, true) => "Episode 1: Awakening".to_string(),
-        (1, false) => "Episode 1: Systems Restored".to_string(),
+        (1, false) => "Episode 1: Diagnostics Complete".to_string(),
         (2, true) => "Episode 2: The Asteroid Field".to_string(),
         (ep, true) => format!("Episode {}: Prologue", ep),
         (ep, false) => format!("Episode {}: Conclusion", ep),
     };
 
     let text = move || match (episode.get(), is_intro.get()) {
-        (1, true) => "You awaken from cryo-sleep to the sound of klaxons. The ship is dead in the water, and the AI is corrupted. It's up to you to manually reboot the core systems using Rust.".to_string(),
+        (1, true) => "You awaken from cryo-sleep to the blare of klaxons. The primary reactor is offline, and the AI is corrupted. It's up to you to manually reboot the core systems using Rust.".to_string(),
         (1, false) => "The power surges back online. The monitors flicker to life, but the proximity alarms are already screaming. We are not safe yet.".to_string(),
         (2, true) => "An uncharted dense asteroid field blocks the path to the nearest relay station. The navigation CPU is burned out. We have to pilot through this manually.".to_string(),
         (_, true) => "The journey continues deeper into the legacy sector...".to_string(),
