@@ -91,8 +91,8 @@ pub fn CutsceneViewer(
         (7, true) => "/assets/cutscenes/ep7_intro.png".to_string(),
         (7, false) => "/assets/cutscenes/ep7_outro.png".to_string(),
         (8, true) => "/assets/cutscenes/ep8_intro.png".to_string(),
-        (8, false) => "/assets/cutscenes/ep8_intro.png".to_string(), // Fallback: hit rate limit for ep8_outro
-        (9, true) => "/assets/cutscenes/ep1_prologue.png".to_string(), // Fallback: hit rate limit for ep9_intro
+        (8, false) => "/assets/cutscenes/ep8_outro.png".to_string(),
+        (9, true) => "/assets/cutscenes/ep9_intro.png".to_string(),
         (9, false) => "/assets/cutscenes/ep9_epilogue.png".to_string(),
         (_, true) => "/assets/cutscenes/ep1_prologue.png".to_string(), // Fallback
         (_, false) => "/assets/cutscenes/ep9_epilogue.png".to_string(), // Fallback
