@@ -367,6 +367,15 @@ fn App() -> impl IntoView {
                     ("system".to_string(), "Ready for input.".to_string()),
                 ]);
             },
+            (ep, m) if m < 3 && ep > 1 && ep <= 9 => {
+                set_current_module.update(|mod_ref| *mod_ref += 1);
+                set_is_completed.set(false);
+                set_inputs.set(vec!["".to_string(); 5]);
+                set_terminal_output.set(vec![
+                    ("system".to_string(), "Loading next module...".to_string()),
+                    ("system".to_string(), "Ready for input.".to_string()),
+                ]);
+            },
             (1, 2) | (2, 3) | (3, 3) | (4, 3) | (5, 3) | (6, 3) | (7, 3) | (8, 3) => {
                 // End of an Episode - trigger Outro cutscene without mutating episode yet
                 set_is_cutscene.set(true);

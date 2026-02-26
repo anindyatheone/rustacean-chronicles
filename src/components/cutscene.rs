@@ -76,10 +76,10 @@ pub fn CutsceneViewer(
     };
 
     let image_url = move || match (episode.get(), is_intro.get()) {
-        (1, true) => "/assets/cutscenes/intro_1.svg".to_string(),
-        (1, false) => "/assets/cutscenes/outro_1.svg".to_string(),
-        (_, true) => "/assets/cutscenes/intro_1.svg".to_string(), // Fallback
-        (_, false) => "/assets/cutscenes/outro_1.svg".to_string(), // Fallback
+        (1, true) => "/assets/cutscenes/intro_1.svg?v=2".to_string(),
+        (1, false) => "/assets/cutscenes/outro_1.svg?v=2".to_string(),
+        (_, true) => "/assets/cutscenes/intro_1.svg?v=2".to_string(), // Fallback
+        (_, false) => "/assets/cutscenes/outro_1.svg?v=2".to_string(), // Fallback
     };
 
     view! {
