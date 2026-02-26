@@ -1,12 +1,17 @@
 use leptos::prelude::*;
 use rustacean_chronicles::components::story::StoryPanel;
 use rustacean_chronicles::components::workspace::Workspace;
+use rustacean_chronicles::components::cutscene::CutsceneViewer;
 
 #[component]
 fn App() -> impl IntoView {
     // Top-Level State Machine
     let (current_episode, set_current_episode) = signal(1);
     let (current_module, set_current_module) = signal(1);
+
+    // Cutscene State
+    let (is_cutscene, set_is_cutscene) = signal(true);
+    let (is_intro, set_is_intro) = signal(true);
 
     // Generic Inputs Array (supports up to 5 inputs for any given module challenge)
     let (inputs, set_inputs) = signal(vec!["".to_string(); 5]);
@@ -362,252 +367,19 @@ fn App() -> impl IntoView {
                     ("system".to_string(), "Ready for input.".to_string()),
                 ]);
             },
-            (1, 2) => {
-                // End of Episode 1
-                set_current_episode.set(2);
-                set_current_module.set(1);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]); // Clear inputs for new module
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Warping to next sector...".to_string()),
-                    ("system".to_string(), "Episode 2: Navigation Hazards".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (2, 1) => {
-                set_current_module.set(2);
+            (1, 2) | (2, 3) | (3, 3) | (4, 3) | (5, 3) | (6, 3) | (7, 3) | (8, 3) => {
+                // End of an Episode - trigger Outro cutscene without mutating episode yet
+                set_is_cutscene.set(true);
+                set_is_intro.set(false);
                 set_is_completed.set(false);
                 set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (2, 2) => {
-                set_current_module.set(3);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (2, 3) => {
-                // End of Episode 2
-                set_current_episode.set(3);
-                set_current_module.set(1);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Warping to next sector...".to_string()),
-                    ("system".to_string(), "Episode 3: Power Grid Allocations".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (3, 1) => {
-                set_current_module.set(2);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (3, 2) => {
-                set_current_module.set(3);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (3, 3) => {
-                // End of Episode 3
-                set_current_episode.set(4);
-                set_current_module.set(1);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Warping to next sector...".to_string()),
-                    ("system".to_string(), "Episode 4: Cataloging Alien Artifacts".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (4, 1) => {
-                set_current_module.set(2);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (4, 2) => {
-                set_current_module.set(3);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (4, 3) => {
-                // End of Episode 4
-                set_current_episode.set(5);
-                set_current_module.set(1);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Warping to next sector...".to_string()),
-                    ("system".to_string(), "Episode 5: Hull Breach!".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (5, 1) => {
-                set_current_module.set(2);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (5, 2) => {
-                set_current_module.set(3);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (5, 3) => {
-                // End of Episode 5
-                set_current_episode.set(6);
-                set_current_module.set(1);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Warping to next sector...".to_string()),
-                    ("system".to_string(), "Episode 6: Manifest Recovery".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (6, 1) => {
-                set_current_module.set(2);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (6, 2) => {
-                set_current_module.set(3);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (6, 3) => {
-                // End of Episode 6
-                set_current_episode.set(7);
-                set_current_module.set(1);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Warping to next sector...".to_string()),
-                    ("system".to_string(), "Episode 7: Universal Translations".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (7, 1) => {
-                set_current_module.set(2);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (7, 2) => {
-                set_current_module.set(3);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (7, 3) => {
-                // End of Episode 7
-                set_current_episode.set(8);
-                set_current_module.set(1);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Warping to next sector...".to_string()),
-                    ("system".to_string(), "Episode 8: Warp Core Synchronization".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (8, 1) => {
-                set_current_module.set(2);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (8, 2) => {
-                set_current_module.set(3);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (8, 3) => {
-                // End of Episode 8
-                set_current_episode.set(9);
-                set_current_module.set(1);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Warping to next sector...".to_string()),
-                    ("system".to_string(), "Episode 9: Conformity Gate".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (9, 1) => {
-                set_current_module.set(2);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
-            },
-            (9, 2) => {
-                set_current_module.set(3);
-                set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
-                set_terminal_output.set(vec![
-                    ("system".to_string(), "Loading next module...".to_string()),
-                    ("system".to_string(), "Ready for input.".to_string()),
-                ]);
             },
             (9, 3) => {
                 // End of Episode 9
                 set_current_episode.set(10);
                 set_current_module.set(1);
                 set_is_completed.set(false);
-                set_inputs.set(vec!["".to_string(); 5]);
+                set_inputs.set(vec!["".to_string(); 5]); // Clear inputs
                 set_terminal_output.set(vec![
                     ("system".to_string(), "Warping to final sector...".to_string()),
                     ("system".to_string(), "Epilogue: Journey Complete".to_string()),
@@ -619,6 +391,26 @@ fn App() -> impl IntoView {
                 logs.push(("system".to_string(), "End of Content Demo".to_string()));
                 set_terminal_output.set(logs);
             }
+        }
+    };
+    
+    let complete_cutscene = move || {
+        if is_intro.get() {
+            // Intro finished -> Start module!
+            set_is_cutscene.set(false);
+            set_terminal_output.set(vec![
+                ("system".to_string(), "Booting execution environment...".to_string()),
+                ("system".to_string(), "Ready for input.".to_string()),
+            ]);
+        } else {
+            // Outro finished -> Advance to next episode's Intro!
+            set_current_episode.update(|ep| *ep += 1);
+            set_current_module.set(1);
+            set_is_intro.set(true);
+            set_is_cutscene.set(true);
+            set_terminal_output.set(vec![
+                ("system".to_string(), format!("Routing to Episode {}...", current_episode.get())),
+            ]);
         }
     };
 
@@ -639,25 +431,39 @@ fn App() -> impl IntoView {
 
     view! {
         <main class="app-layout">
-            <StoryPanel 
-                episode_title=Signal::derive(episode_title)
-                module_title=Signal::derive(module_title)
-                story_text=Signal::derive(story_text)
-                concept_title=Signal::derive(concept_title)
-                concept_text=Signal::derive(concept_text)
-                challenge_text=Signal::derive(challenge_text)
-                is_completed=is_completed
-            />
-            <Workspace 
-                current_episode=current_episode
-                current_module=current_module
-                inputs=inputs
-                set_inputs=set_inputs
-                terminal_output=terminal_output
-                is_completed=is_completed
-                trigger_run=set_trigger_run
-                trigger_next=set_trigger_next
-            />
+            {move || if is_cutscene.get() {
+                view! {
+                    <CutsceneViewer 
+                        episode=current_episode
+                        is_intro=is_intro
+                        on_continue=complete_cutscene.clone()
+                    />
+                }.into_any()
+            } else {
+                view! {
+                    <>
+                        <StoryPanel 
+                            episode_title=Signal::derive(episode_title)
+                            module_title=Signal::derive(module_title)
+                            story_text=Signal::derive(story_text)
+                            concept_title=Signal::derive(concept_title)
+                            concept_text=Signal::derive(concept_text)
+                            challenge_text=Signal::derive(challenge_text)
+                            is_completed=is_completed
+                        />
+                        <Workspace 
+                            current_episode=current_episode
+                            current_module=current_module
+                            inputs=inputs
+                            set_inputs=set_inputs
+                            terminal_output=terminal_output
+                            is_completed=is_completed
+                            trigger_run=set_trigger_run
+                            trigger_next=set_trigger_next
+                        />
+                    </>
+                }.into_any()
+            }}
         </main>
     }
 }
