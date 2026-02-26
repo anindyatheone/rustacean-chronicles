@@ -582,11 +582,9 @@ input.code-input:focus {
 
 .cutscene-status-overlay {
   position: absolute;
-  top: 25%;
-  left: 50%;
-  width: 100%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+  top: 10%;
+  left: 5%;
+  text-align: left;
   z-index: 10;
   pointer-events: none;
   animation: slowPanIn 20s linear forwards;
@@ -621,3 +619,104 @@ input.code-input:focus {
 .status-outro .status-secondary {
   color: #00ffcc;
 }
+/* =========================================================================
+   8. PERSISTENT MENU
+   ========================================================================= */
+
+.menu-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.menu-toggle-btn {
+    background: rgba(13, 17, 23, 0.8);
+    border: 1px solid var(--panel-border);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    transition: all 0.2s;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.menu-toggle-btn:hover {
+    transform: scale(1.1);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+.menu-panel {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: rgba(13, 17, 23, 0.95);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.menu-panel h3 {
+    margin: 0 0 10px 0;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    border-bottom: 1px solid var(--panel-border);
+    padding-bottom: 8px;
+}
+
+.menu-section h4 {
+    margin: 0 0 8px 0;
+    font-size: 0.9rem;
+    color: var(--color-secondary);
+}
+
+.episode-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.btn-replay {
+    background: transparent;
+    border: 1px solid var(--panel-border);
+    color: var(--color-text);
+    font-size: 0.85rem;
+    padding: 6px;
+    width: 100%;
+    text-align: left;
+}
+
+.btn-replay:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: var(--color-accent);
+}
+
+.btn-reset {
+    background: rgba(255, 60, 60, 0.1);
+    border: 1px solid #ff3333;
+    color: #ff3333;
+    font-size: 0.85rem;
+    padding: 8px;
+    width: 100%;
+}
+
+.btn-reset:hover {
+    background: rgba(255, 60, 60, 0.2);
+    box-shadow: 0 0 10px rgba(255, 60, 60, 0.3);
+}
+

@@ -2,12 +2,58 @@ use leptos::prelude::*;
 use rustacean_chronicles::components::story::StoryPanel;
 use rustacean_chronicles::components::workspace::Workspace;
 use rustacean_chronicles::components::cutscene::CutsceneViewer;
+use rustacean_chronicles::components::menu::Menu;
+use leptos::web_sys;
 
 #[component]
 fn App() -> impl IntoView {
     // Top-Level State Machine
     let (current_episode, set_current_episode) = signal(1);
     let (current_module, set_current_module) = signal(1);
+    let (highest_unlocked_episode, set_highest_unlocked_episode) = signal(1);
+
+    // Initial Load from LocalStorage
+    Effect::new_isomorphic(move |_| {
+        if let Some(window) = leptos::web_sys::window() {
+            if let Ok(Some(local_storage)) = window.local_storage() {
+                if let Ok(Some(ep)) = local_storage.get_item("saved_episode") {
+                    if let Ok(parsed_ep) = ep.parse::<u32>() {
+                        set_current_episode.set(parsed_ep);
+                    }
+                }
+                if let Ok(Some(m)) = local_storage.get_item("saved_module") {
+                    if let Ok(parsed_m) = m.parse::<u32>() {
+                        set_current_module.set(parsed_m);
+                    }
+                }
+                if let Ok(Some(h_ep)) = local_storage.get_item("highest_unlocked_episode") {
+                    if let Ok(parsed_hep) = h_ep.parse::<u32>() {
+                        set_highest_unlocked_episode.set(parsed_hep);
+                    }
+                }
+            }
+        }
+    });
+
+    // Auto-Save Effect
+    Effect::new(move |_| {
+        let ep = current_episode.get();
+        let m = current_module.get();
+        let mut highest = highest_unlocked_episode.get();
+        
+        if ep > highest {
+            highest = ep;
+            set_highest_unlocked_episode.set(highest);
+        }
+
+        if let Some(window) = leptos::web_sys::window() {
+            if let Ok(Some(local_storage)) = window.local_storage() {
+                let _ = local_storage.set_item("saved_episode", &ep.to_string());
+                let _ = local_storage.set_item("saved_module", &m.to_string());
+                let _ = local_storage.set_item("highest_unlocked_episode", &highest.to_string());
+            }
+        }
+    });
 
     // Cutscene State
     let (is_cutscene, set_is_cutscene) = signal(true);
@@ -440,6 +486,14 @@ fn App() -> impl IntoView {
 
     view! {
         <main class="app-layout">
+            <Menu 
+                current_episode=set_current_episode
+                current_module=set_current_module
+                highest_unlocked_episode=highest_unlocked_episode
+                set_highest_unlocked_episode=set_highest_unlocked_episode
+                is_cutscene=set_is_cutscene
+                is_intro=set_is_intro
+            />
             {move || if is_cutscene.get() {
                 view! {
                     <CutsceneViewer 
