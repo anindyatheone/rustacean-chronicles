@@ -76,26 +76,26 @@ pub fn CutsceneViewer(
     };
 
     let image_url = move || match (episode.get(), is_intro.get()) {
-        (1, true) => "/assets/cutscenes/ep1_prologue.png".to_string(), // Replaced basic ep1_intro with the cinematic prologue
-        (1, false) => "/assets/cutscenes/ep1_outro.png".to_string(),
-        (2, true) => "/assets/cutscenes/ep2_intro.png".to_string(),
-        (2, false) => "/assets/cutscenes/ep2_outro.png".to_string(),
-        (3, true) => "/assets/cutscenes/ep3_intro.png".to_string(),
-        (3, false) => "/assets/cutscenes/ep3_outro.png".to_string(),
-        (4, true) => "/assets/cutscenes/ep4_intro.png".to_string(),
-        (4, false) => "/assets/cutscenes/ep4_outro.png".to_string(),
-        (5, true) => "/assets/cutscenes/ep5_intro.png".to_string(),
-        (5, false) => "/assets/cutscenes/ep5_outro.png".to_string(),
-        (6, true) => "/assets/cutscenes/ep6_intro.png".to_string(),
-        (6, false) => "/assets/cutscenes/ep6_outro.png".to_string(),
-        (7, true) => "/assets/cutscenes/ep7_intro.png".to_string(),
-        (7, false) => "/assets/cutscenes/ep7_outro.png".to_string(),
-        (8, true) => "/assets/cutscenes/ep8_intro.png".to_string(),
-        (8, false) => "/assets/cutscenes/ep8_outro.png".to_string(),
-        (9, true) => "/assets/cutscenes/ep9_intro.png".to_string(),
-        (9, false) => "/assets/cutscenes/ep9_epilogue.png".to_string(),
-        (_, true) => "/assets/cutscenes/ep1_prologue.png".to_string(), // Fallback
-        (_, false) => "/assets/cutscenes/ep9_epilogue.png".to_string(), // Fallback
+        (1, true) => "assets/cutscenes/ep1_prologue.png".to_string(), // Replaced basic ep1_intro with the cinematic prologue
+        (1, false) => "assets/cutscenes/ep1_outro.png".to_string(),
+        (2, true) => "assets/cutscenes/ep2_intro.png".to_string(),
+        (2, false) => "assets/cutscenes/ep2_outro.png".to_string(),
+        (3, true) => "assets/cutscenes/ep3_intro.png".to_string(),
+        (3, false) => "assets/cutscenes/ep3_outro.png".to_string(),
+        (4, true) => "assets/cutscenes/ep4_intro.png".to_string(),
+        (4, false) => "assets/cutscenes/ep4_outro.png".to_string(),
+        (5, true) => "assets/cutscenes/ep5_intro.png".to_string(),
+        (5, false) => "assets/cutscenes/ep5_outro.png".to_string(),
+        (6, true) => "assets/cutscenes/ep6_intro.png".to_string(),
+        (6, false) => "assets/cutscenes/ep6_outro.png".to_string(),
+        (7, true) => "assets/cutscenes/ep7_intro.png".to_string(),
+        (7, false) => "assets/cutscenes/ep7_outro.png".to_string(),
+        (8, true) => "assets/cutscenes/ep8_intro.png".to_string(),
+        (8, false) => "assets/cutscenes/ep8_outro.png".to_string(),
+        (9, true) => "assets/cutscenes/ep9_intro.png".to_string(),
+        (9, false) => "assets/cutscenes/ep9_epilogue.png".to_string(),
+        (_, true) => "assets/cutscenes/ep1_prologue.png".to_string(), // Fallback
+        (_, false) => "assets/cutscenes/ep9_epilogue.png".to_string(), // Fallback
     };
 
     view! {
