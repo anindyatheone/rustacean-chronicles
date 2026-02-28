@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Rustacean Chronicles</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/rustacean-chronicles/style-4cba1b642c468136.css" integrity="sha384-P/0qk22a5p4uEWmguQQA7zgJBncPyO9CMIZxS2748XkWGhIFdenOYAITDGrpJJT7"/>
+    
+    
+    
+    
+<script type="module">
+import init, * as bindings from '/rustacean-chronicles/rustacean-chronicles-cdce06bbfde6ac33.js';
+const wasm = await init({ module_or_path: '/rustacean-chronicles/rustacean-chronicles-cdce06bbfde6ac33_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0F172A" />
+    <link rel="apple-touch-icon" href="assets/icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Rustacean" />
+    <!-- Trunk will inject the WASM scripts here automatically -->
+<link rel="modulepreload" href="/rustacean-chronicles/rustacean-chronicles-cdce06bbfde6ac33.js" crossorigin="anonymous" integrity="sha384-45zuF9uc3OfLIX5jTnWUe4+RxaUTEhA/9/0LAt+1c7zujvbqOMkyXQqkSdV74AH7"><link rel="preload" href="/rustacean-chronicles/rustacean-chronicles-cdce06bbfde6ac33_bg.wasm" crossorigin="anonymous" integrity="sha384-iK+yjdPXkXML80lh4AQwxUOLF2u16jLecDgPNBXw5zQl/j/RMFDSoeMRO800JFMy" as="fetch" type="application/wasm"></head>
+
+<body>
+    <!-- Setup PWA Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').then((registration) => {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, (error) => {
+                    console.log('ServiceWorker registration failed: ', error);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
